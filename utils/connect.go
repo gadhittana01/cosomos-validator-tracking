@@ -3,7 +3,6 @@ package utils
 import (
 	"context"
 	"database/sql"
-	"log"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -23,7 +22,6 @@ type PGXPool interface {
 }
 
 func ConnectDBPool(connString string) *pgxpool.Pool {
-	log.Println("Connecting to DB Pool: ", connString)
 	dbpool, err := pgxpool.New(context.Background(), connString)
 	if err != nil {
 		panic(err)

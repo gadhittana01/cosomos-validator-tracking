@@ -5,9 +5,9 @@ import (
 	"github.com/go-chi/chi"
 )
 
-// @title           Subscription Service API
+// @title           Validator Tracking Service API
 // @version         1.0
-// @description     API Spec for Subscription Service
+// @description     API Spec for Validator Tracking Service
 // @termsOfService  http://swagger.io/terms/
 
 // @contact.name   API Support

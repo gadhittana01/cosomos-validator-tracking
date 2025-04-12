@@ -1,0 +1,353 @@
+basePath: /
+definitions:
+  dto.ErrorMsgResp:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.FailedResp400:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/dto.ErrorMsgResp'
+        type: array
+      statusCode:
+        default: 400
+        type: integer
+      success:
+        default: false
+        type: boolean
+    type: object
+  dto.FailedResp401:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/dto.ErrorMsgResp'
+        type: array
+      statusCode:
+        default: 401
+        type: integer
+      success:
+        default: false
+        type: boolean
+    type: object
+  dto.FailedResp404:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/dto.ErrorMsgResp'
+        type: array
+      statusCode:
+        default: 404
+        type: integer
+      success:
+        default: false
+        type: boolean
+    type: object
+  dto.FailedResp500:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/dto.ErrorMsgResp'
+        type: array
+      statusCode:
+        default: 500
+        type: integer
+      success:
+        default: false
+        type: boolean
+    type: object
+  dto.GetDailySnapshotResponse:
+    properties:
+      address:
+        type: string
+      date:
+        type: string
+      total:
+        type: integer
+    type: object
+  dto.GetDelegatorHistoryResponse:
+    properties:
+      amount:
+        type: integer
+      change:
+        type: integer
+      timestamp:
+        type: string
+    type: object
+  dto.GetHourlySnapshotResponse:
+    properties:
+      address:
+        type: string
+      amount:
+        type: integer
+      change:
+        type: integer
+      date:
+        type: string
+      timestamp:
+        type: string
+    type: object
+  dto.Next:
+    properties:
+      page:
+        type: integer
+    type: object
+  dto.PaginationResp-dto_GetDailySnapshotResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.GetDailySnapshotResponse'
+        type: array
+      isLoadMore:
+        type: boolean
+      next:
+        $ref: '#/definitions/dto.Next'
+      prev:
+        $ref: '#/definitions/dto.Prev'
+      total:
+        type: integer
+    type: object
+  dto.PaginationResp-dto_GetDelegatorHistoryResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.GetDelegatorHistoryResponse'
+        type: array
+      isLoadMore:
+        type: boolean
+      next:
+        $ref: '#/definitions/dto.Next'
+      prev:
+        $ref: '#/definitions/dto.Prev'
+      total:
+        type: integer
+    type: object
+  dto.PaginationResp-dto_GetHourlySnapshotResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/dto.GetHourlySnapshotResponse'
+        type: array
+      isLoadMore:
+        type: boolean
+      next:
+        $ref: '#/definitions/dto.Next'
+      prev:
+        $ref: '#/definitions/dto.Prev'
+      total:
+        type: integer
+    type: object
+  dto.Prev:
+    properties:
+      page:
+        type: integer
+    type: object
+  dto.SuccessResp200:
+    properties:
+      data: {}
+      statusCode:
+        default: 200
+        type: integer
+      success:
+        default: true
+        type: boolean
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: API Spec for Validator Tracking Service
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Validator Tracking Service API
+  version: "1.0"
+paths:
+  /api/v1/scheduler/validator/daily:
+    post:
+      consumes:
+      - application/json
+      description: Scheduler For Daily Collect Validator Data
+      operationId: schedulerForDailyCollectValidatorData
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SuccessResp200'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FailedResp400'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.FailedResp401'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FailedResp404'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FailedResp500'
+      summary: Scheduler For Daily Collect Validator Data
+      tags:
+      - validator
+  /api/v1/scheduler/validator/hourly:
+    post:
+      consumes:
+      - application/json
+      description: Scheduler For Hourly Collect Validator Data
+      operationId: schedulerForHourlyCollectValidatorData
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SuccessResp200'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FailedResp400'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.FailedResp401'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FailedResp404'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FailedResp500'
+      summary: Scheduler For Hourly Collect Validator Data
+      tags:
+      - validator
+  /api/v1/validators/{validatorAddress}/delegations/daily:
+    get:
+      consumes:
+      - application/json
+      description: Get Daily Delegation Snapshot
+      operationId: getDailyDelegationSnapshot
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.SuccessResp200'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.PaginationResp-dto_GetDailySnapshotResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FailedResp400'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.FailedResp401'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FailedResp404'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FailedResp500'
+      summary: Get Daily Delegation Snapshot
+      tags:
+      - validator
+  /api/v1/validators/{validatorAddress}/delegations/hourly:
+    get:
+      consumes:
+      - application/json
+      description: Get Hourly Delegation Snapshot
+      operationId: getHourlyDelegationSnapshot
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.SuccessResp200'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.PaginationResp-dto_GetHourlySnapshotResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FailedResp400'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.FailedResp401'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FailedResp404'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FailedResp500'
+      summary: Get Hourly Delegation Snapshot
+      tags:
+      - validator
+  /api/v1/validators/{validatorAddress}/delegator/{delegatorAddress}/history:
+    get:
+      consumes:
+      - application/json
+      description: Get Delegator History
+      operationId: getDelegatorHistory
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/dto.SuccessResp200'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.PaginationResp-dto_GetDelegatorHistoryResponse'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FailedResp400'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/dto.FailedResp401'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FailedResp404'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FailedResp500'
+      summary: Get Delegator History
+      tags:
+      - validator
+schemes:
+- http
+- https
+securityDefinitions:
+  authorization:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

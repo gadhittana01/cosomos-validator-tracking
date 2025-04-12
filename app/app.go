@@ -50,10 +50,10 @@ func (s *AppImpl) Start() {
 
 	opts := openApiMiddleware.SwaggerUIOpts{
 		SpecURL: s.config.SwaggerURL,
-		Path:    "/v1/subscription/docs",
+		Path:    "/v1/validator/docs",
 	}
 	sh := openApiMiddleware.SwaggerUI(opts, nil)
-	s.route.Handle("/v1/subscription/docs/*", sh)
+	s.route.Handle("/v1/validator/docs/*", sh)
 	s.route.Handle("/swagger.yaml", http.FileServer(http.Dir("./docs")))
 
 	// Health check endpoint

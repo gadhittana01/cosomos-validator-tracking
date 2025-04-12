@@ -36,7 +36,7 @@ func NewSchedulerHandler(validatorScheduler scheduler.ValidatorScheduler, logger
 // @Failure      401  {object}  dto.FailedResp401
 // @Failure      404  {object}  dto.FailedResp404
 // @Failure      500  {object}  dto.FailedResp500
-// @Router       /api/v1/scheduler/validator/hourly [get]
+// @Router       /api/v1/scheduler/validator/hourly [post]
 func (h *schedulerHandlerImpl) SchedulerForHourlyCollectValidatorData(w http.ResponseWriter, r *http.Request) {
 	h.validatorScheduler.SchedulerForHourlyCollectValidatorData(r.Context())
 
@@ -55,7 +55,7 @@ func (h *schedulerHandlerImpl) SchedulerForHourlyCollectValidatorData(w http.Res
 // @Failure      401  {object}  dto.FailedResp401
 // @Failure      404  {object}  dto.FailedResp404
 // @Failure      500  {object}  dto.FailedResp500
-// @Router       /api/v1/scheduler/validator/daily [get]
+// @Router       /api/v1/scheduler/validator/daily [post]
 func (h *schedulerHandlerImpl) SchedulerForDailyCollectValidatorData(w http.ResponseWriter, r *http.Request) {
 	h.validatorScheduler.SchedulerForDailyCollectValidatorData(r.Context())
 
