@@ -101,11 +101,35 @@ docker-compose up -d
 docker-compose ps
 ```
 
-## Development
-
 ### Running Tests
 
 ```bash
 # Run all tests
 make test
 ```
+
+## Deployment
+To deploy this project in a production-ready environment using Google Cloud Platform (GCP), follow the steps below:
+
+### Set Up CI/CD Pipeline
+Create a CI/CD pipeline (using GitHub Actions, GitLab CI, or Cloud Build) to automate the deployment process.
+
+Example Workflow Steps:
+- Lint and test your code.
+- Build Docker image and push to Artifact Registry.
+- Deploy to Cloud Run, Instance Group, or GKE.
+
+## Configure Secrets
+Use Google Secret Manager to store sensitive information such as:
+- Database credentials
+- API keys
+- Configurable Variables
+
+## Create a Dedicated Service Account
+Create and attach the service account to your GCP deployment.
+
+## Deploy the Application
+Choose one of the following options based on your architecture preference:
+- Cloud Run (Recommended for Simplicity)
+- Instance Group (for custom VM workloads)
+- GKE (for container orchestration)
